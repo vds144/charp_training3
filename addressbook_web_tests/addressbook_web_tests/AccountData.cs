@@ -25,7 +25,7 @@ namespace WebAddressbookTests
             }
             set
             {
-                return = value;
+                username = value;
             }
         }
 
