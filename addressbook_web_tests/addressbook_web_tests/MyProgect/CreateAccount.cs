@@ -7,7 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
-namespace MyProgectCreateAccountAddressbookTests
+namespace AccountCreationTests
 {
 
     [TestFixture]
@@ -44,7 +44,7 @@ namespace MyProgectCreateAccountAddressbookTests
         public void TheUntitledTestCaseTest()
         {
             Login(new MyProgectAccountData("admin", "secret"));
-            MyProgectGroupData group = new MyProgectGroupData("Firstname");
+            ContactData group = new ContactData("Firstname");
             group.Middlename = "Middlename";
             group.Lastname = "Lastname";
             AddnewAccount(group);
@@ -65,7 +65,7 @@ namespace MyProgectCreateAccountAddressbookTests
             driver.FindElement(By.Name("submit")).Click();
         }
 
-        private void AddnewAccount(MyProgectGroupData group)
+        private void AddnewAccount(ContactData group)
         {
             // Add new Account
             driver.FindElement(By.LinkText("add new")).Click();

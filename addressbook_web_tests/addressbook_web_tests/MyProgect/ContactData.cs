@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyProgectCreateAccountAddressbookTests
+namespace AccountCreationTests
 {
-    class MyProgectGroupData
+    class ContactData
     {
        // private string name;
         private string firstname;
@@ -15,7 +15,7 @@ namespace MyProgectCreateAccountAddressbookTests
 
 
 
-        public MyProgectGroupData(string firstname)
+        public ContactData(string firstname)
             
             {
             this.firstname = firstname;
