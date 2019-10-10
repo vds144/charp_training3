@@ -27,7 +27,7 @@ public Circle(int radius)
             }
         }
 
-        public bool Colored
+        public new bool Colored
         {
             get
             {

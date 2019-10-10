@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AccountCreationTests
+namespace WebAddressbookTests
 {
-    class MyProgectAccountData
+    public class AccountData
     {
         private string username;
         private string password;
 
-        public MyProgectAccountData(string username, string password)
+        public AccountData(string username, string password)
         {
             this.username = username;
             this.password = password;
