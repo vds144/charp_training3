@@ -18,17 +18,16 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTest()
         {
-            GoToHomePage();
-            Login(new AccountData("admin", "secret"));
+            
+            app.Auth.Login(new AccountData("admin", "secret"));
             ContactData group = new ContactData("Firstname");
             group.Middlename = "Middlename";
             group.Lastname = "Lastname";
-            AddnewAccount(group);
-            CreateAccount();
-            Logout();
+            app.Contact
+                .AddnewAccount(group)
+                .CreateAccount()
+              // app.Groups.ReturnToGroupsPage();
+                .Logout();
         }
-
-
-
     }
 }

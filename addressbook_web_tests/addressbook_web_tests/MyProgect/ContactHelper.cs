@@ -11,21 +11,36 @@ namespace WebAddressbookTests
 {
     public class ContactHelper : HelperBase
     {
-        private ApplicationManager applicationManager;
 
-        public ContactHelper(IWebDriver driver) 
-            : base(driver)
-        {
-         
-        }
-
-        public ContactHelper(ApplicationManager manager) : base(manager)
+        
+        public ContactHelper(ApplicationManager manager)
+              : base(manager)
         {
         }
 
-        // public ContactHelper(ApplicationManager applicationManager);
+        public ContactHelper GoToGroupsPage()
+             
+        {
 
-        public IWebDriver driver { get; private set; }
+            driver.FindElement(By.LinkText("groups")).Click();
+            return this;
+        }
+
+        public ContactHelper Logout()
+        {
+            // Logout
+            driver.FindElement(By.LinkText("Logout")).Click();
+        return this;
+
+    }
+
+        public ContactHelper CreateAccount()
+
+        {
+            // Create Account
+            driver.FindElement(By.Name("submit")).Click();
+            return this;
+        }
 
         public ContactHelper AddnewAccount(ContactData group)
         {
@@ -39,23 +54,6 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("lastname")).Clear();
             driver.FindElement(By.Name("lastname")).SendKeys(group.Lastname);
             return this;
-        }
-
-        internal ContactHelper AddnewAccount(object group)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ContactHelper CreateAccount()
-        {
-            // Create Account
-            driver.FindElement(By.Name("submit")).Click();
-            return this;
-        }
-
-        public static implicit operator ContactHelper(LoginHelper v)
-        {
-            throw new NotImplementedException();
         }
     }
 }
