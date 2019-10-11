@@ -30,9 +30,7 @@ namespace WebAddressbookTests
 			driver.FindElement(By.Name("lastname")).Click();
 			driver.FindElement(By.Name("lastname")).Clear();
 			driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
-			driver.FindElement(By.Name("nickname")).Click();
-			driver.FindElement(By.Name("nickname")).Clear();
-			driver.FindElement(By.Name("nickname")).SendKeys(contact.Nickname);
+
 			
 
 		}
