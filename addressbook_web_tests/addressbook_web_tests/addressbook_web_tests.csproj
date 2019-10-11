@@ -64,6 +64,7 @@
     <Compile Include="appmanagers\ApplicationManager.cs" />
     <Compile Include="models\GroupData.cs" />
     <Compile Include="appmanagers\GroupHelper.cs" />
+    <Compile Include="rer.cs" />
     <Compile Include="test\GroupRemovalTest.cs" />
     <Compile Include="appmanagers\HelperBase.cs" />
     <Compile Include="appmanagers\LoginHelper.cs" />
