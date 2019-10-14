@@ -17,14 +17,27 @@ namespace WebAddressbookTests
 	public void ContactCreationTests()
 		{
 			
-			app.Navigator.GoToAddNewPage();
-			app.Contacts.InitNewContactCreation();
+			
 			ContactData contact = new ContactData("Firstname");
 			contact.Middlename = "Middlename";
 			contact.Lastname = "Lastname";
-			app.Contacts.FillContactForm(contact);
-			app.Contacts.SubmitContactCreation();
-			app.Navigator.ReturnToContactPage();
+
+            
+            app.Contacts.Create(contact);
+
 		}
-	}
+
+        [Test]
+        public void EmptyContactCreationTests()
+        {
+
+            
+            ContactData contact = new ContactData("");
+            contact.Middlename = "";
+            contact.Lastname = "";
+
+            app.Contacts.Create(contact);
+
+        }
+    }
 }
