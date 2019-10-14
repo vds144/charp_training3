@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace WebAddressbookTests
 
 {
+    [TestFixture]
     class GroupMidificationTests
     {
     }
