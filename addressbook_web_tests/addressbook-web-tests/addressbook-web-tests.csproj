@@ -79,13 +79,14 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="GroupMidificationTests.cs" />
     <Compile Include="models\AccountData.cs" />
     <Compile Include="appmanagers\ApplicationManager.cs" />
     <Compile Include="MyProgect\ContactData.cs" />
     <Compile Include="MyProgect\ContactHelper.cs" />
     <Compile Include="models\GroupData.cs" />
     <Compile Include="appmanagers\GroupHelper.cs" />
-    <Compile Include="tests\GroupRemovalTest.cs" />
+    <Compile Include="tests\GroupRemovalTests.cs" />
     <Compile Include="appmanagers\HelperBase.cs" />
     <Compile Include="appmanagers\LoginHelper.cs" />
     <Compile Include="appmanagers\NavigationHelper.cs" />
