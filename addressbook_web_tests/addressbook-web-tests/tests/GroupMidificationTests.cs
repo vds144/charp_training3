@@ -17,8 +17,8 @@ namespace WebAddressbookTests
         {
 
             GroupData newData = new GroupData("zzz");
-            newData.Header = "ttt";
-            newData.Footer = "qqq";
+            newData.Header = null;
+            newData.Footer = null;
 
             app.Groups.Mofify(1, newData);
         }
