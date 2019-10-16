@@ -27,7 +27,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper Remove(int v)
+        public ContactHelper Remove()
         {
             manager.Navigator.GoToContactPage();
 
@@ -56,7 +56,7 @@ namespace WebAddressbookTests
 
 
 
-        public ContactHelper Modify(int v, ContactData newData)
+        public ContactHelper Modify(ContactData newData)
         {
             manager.Navigator.GoToContactPage();
 
