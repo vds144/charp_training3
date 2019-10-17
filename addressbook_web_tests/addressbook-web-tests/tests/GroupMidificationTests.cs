@@ -9,7 +9,7 @@ namespace WebAddressbookTests
 
 {
     [TestFixture]
-   public class GroupMidificationTests : TestBase
+   public class GroupMidificationTests : AuthTestBase
     {
 
         [Test]
