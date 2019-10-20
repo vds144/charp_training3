@@ -27,6 +27,19 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GoToContactPage();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr"));
+
+            foreach (IWebElement element in elements)
+            {
+                contacts.Add(new ContactData(element.Text));
+            }
+             return contacts;
+        }
+
         public ContactHelper Remove()
         {
             manager.Navigator.GoToContactPage();
@@ -37,7 +50,7 @@ namespace WebAddressbookTests
             Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
             driver.FindElement(By.CssSelector("div.msgbox"));
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
-            //ReturnToContactPage();
+            ReturnToContactPage();
             return this;
         }
 
@@ -66,7 +79,7 @@ namespace WebAddressbookTests
             InitContactModification();
            FillContactForm(newData);
             SubmitContactModification();
-          ReturnToContactPage();
+          //ReturnToContactPage();
             return this;
         }
 
