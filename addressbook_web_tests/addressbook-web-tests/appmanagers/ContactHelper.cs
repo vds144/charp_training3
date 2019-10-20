@@ -40,7 +40,7 @@ namespace WebAddressbookTests
              return contacts;
         }
 
-        public ContactHelper Remove()
+        public ContactHelper Remove(int v)
         {
             manager.Navigator.GoToContactPage();
 
