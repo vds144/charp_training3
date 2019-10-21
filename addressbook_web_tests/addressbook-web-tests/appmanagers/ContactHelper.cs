@@ -83,6 +83,17 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public void IsModifyContact()
+        {
+            if (IsElementPresent(By.ClassName("center")))
+            {
+                return;
+            }
+            ContactData newData = new ContactData("123456");
+            Create(new ContactData("User"));
+        }
+
+
 
         public ContactHelper SelectContact(int index)
         {

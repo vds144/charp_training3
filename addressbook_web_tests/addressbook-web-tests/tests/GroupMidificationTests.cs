@@ -15,11 +15,13 @@ namespace WebAddressbookTests
         [Test]
         public void GroupMidificationTest()
         {
+            app.Groups.IsModifyGroup();
 
             GroupData newData = new GroupData("zzz");
             newData.Header = null;
             newData.Footer = null;
 
+           
             app.Groups.Mofify(0, newData);
         }
     }

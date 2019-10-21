@@ -28,6 +28,15 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public void IsModifyGroup()
+        {
+            if (IsElementPresent(By.ClassName("group")))
+            {
+                return;
+            }
+            Create(new GroupData("qqq"));
+        }
+
         public List<GroupData> GetGroupList()
         {
             List<GroupData> groups = new List<GroupData>();
