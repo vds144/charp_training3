@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
+
 namespace WebAddressbookTests
 {
     [TestFixture]
@@ -12,22 +13,32 @@ namespace WebAddressbookTests
     public class ContactRemovalTests : AuthTestBase
     {
         [Test]
-
         public void ContactRemovalTest()
         {
-            app.Contacts.IsModifyContact();
+
+
             
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            ContactData contact = new ContactData("Fistname", "Test");
 
-            app.Contacts.Remove(0);
+            if (!app.Contacts.IsContactsExist())
+            {
+                app.Contacts.Create(contact);
+            }
 
+            app.Contacts.IsModifyContact();
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            ContactData newData = new ContactData("Firstname", "qwe");
 
-            oldContacts.RemoveAt(0);
+            List<ContactData> oldContact = app.Contacts.GetContactsLists();
 
-            Assert.AreEqual(oldContacts, newContacts);
+            app.Contacts.Remove(0, newData);
+
+            List<ContactData> newContact = app.Contacts.GetContactsLists();
+
+            oldContact.RemoveAt(0);
+
+            Assert.AreEqual(oldContact, newContact);
 
         }
     }

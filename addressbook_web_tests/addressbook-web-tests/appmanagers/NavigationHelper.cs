@@ -31,7 +31,7 @@ namespace WebAddressbookTests
 		public void ReturnToContactPage()
 		{
             if (driver.Url == baseURL + "/addressbook/group.php"
-    && IsElementPresent(By.Name("All phones")))
+                 && IsElementPresent(By.Name("All phones")))
             {
                 return;
             }
@@ -40,8 +40,15 @@ namespace WebAddressbookTests
 
 		public void GoToAddNewPage()
 		{
+			if (driver.Url == baseURL + "/addressbook/edit.php"
+				&& IsElementPresent(By.Name("submit")))
+			{
+				return;
+			}
+
 			driver.FindElement(By.LinkText("add new")).Click();
 		}
+
         public void GoToContactPage()
         {
             if (driver.Url == baseURL + "/addressbook/group.php"

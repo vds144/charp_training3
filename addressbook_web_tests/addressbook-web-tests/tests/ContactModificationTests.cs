@@ -14,14 +14,33 @@ namespace WebAddressbookTests
 		[Test]
 		public void ContactModificationTest()
 		{
+            
+
+            ContactData contact = new ContactData("Firstname", "Test");
+
+            if (!app.Contacts.IsContactsExist())
+            {
+                app.Contacts.Create(contact);
+            }
+
             app.Contacts.IsModifyContact();
 
-            ContactData newData = new ContactData("Firstname");
-			newData.Middlename = null;
-			newData.Lastname = null;
+            ContactData newData = new ContactData("Firstname", "qwe");
 
-            
-            app.Contacts.Modify(newData);
-		}
+            List<ContactData> oldContact = app.Contacts.GetContactsLists();
+
+            app.Contacts.Modify(0,newData);
+
+            List<ContactData> newContact = app.Contacts.GetContactsLists();
+
+            oldContact[0].Firstname = newData.Firstname;
+            oldContact[0].Lastname = newData.Lastname;
+
+
+            oldContact.Sort();
+            newContact.Sort();
+
+            Assert.AreEqual(oldContact, newContact);
+        }
 	}
 }

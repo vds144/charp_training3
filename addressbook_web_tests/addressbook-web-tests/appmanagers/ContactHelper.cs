@@ -27,24 +27,28 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public List<ContactData> GetContactList()
+        public List<ContactData> GetContactsLists()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            manager.Navigator.GoToContactPage();
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr"));
+            List<ContactData> contact_list = new List<ContactData>();
+            List<IWebElement> contacts = new List<IWebElement>();
 
-            foreach (IWebElement element in elements)
+            manager.Navigator.GoToHomePage();
+
+            ICollection<IWebElement> records = driver.FindElements(By.Name("entry"));
+
+            foreach (IWebElement record in records)
             {
-                contacts.Add(new ContactData(element.Text));
+                contacts = record.FindElements((By.TagName("td"))).ToList();
+                contact_list.Add(new ContactData(contacts[2].Text, contacts[1].Text));
             }
-             return contacts;
+            return contact_list;
         }
 
-        public ContactHelper Remove(int v)
+        public ContactHelper Remove(int i, ContactData newData)
         {
             manager.Navigator.GoToContactPage();
 
-            SelectContact(1);
+            SelectContact(i + 2);
             acceptNextAlert = true;
             DeleteContact();
             Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
@@ -65,21 +69,21 @@ namespace WebAddressbookTests
             InitNewContactCreation();
             FillContactForm(contact);
             SubmitContactCreation();
-            manager.Navigator.ReturnToContactPage();
+            ReturnToContactPage();
             return this;
         }
 
 
 
-        public ContactHelper Modify(ContactData newData)
+        public ContactHelper Modify(int i, ContactData newData)
         {
             manager.Navigator.GoToContactPage();
 
-            SelectContact(1);
+            SelectContact(i + 2);
             InitContactModification();
-           FillContactForm(newData);
+            FillContactForm(newData);
             SubmitContactModification();
-          //ReturnToContactPage();
+            ReturnToContactPage();
             return this;
         }
 
@@ -89,15 +93,15 @@ namespace WebAddressbookTests
             {
                 return;
             }
-            ContactData newData = new ContactData("123456");
-            Create(new ContactData("User"));
+            ContactData newData = new ContactData("123","456");
+            Create(new ContactData("qwe","asd"));
         }
 
 
 
-        public ContactHelper SelectContact(int index)
+        public ContactHelper SelectContact(int i)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + i + "]")).Click();
             return this;
         }
 
@@ -118,6 +122,11 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("update")).Click();
             return this;
         }
+        public bool IsContactsExist()
+        {
+            return IsElementPresent(By.XPath("//img[@alt='Edit']"));
+
+        }
 
         public ContactHelper SubmitContactCreation()
 		{
@@ -137,8 +146,6 @@ namespace WebAddressbookTests
 
 
         }
-
-
 
         public ContactHelper InitNewContactCreation()
 		{

@@ -15,11 +15,11 @@ namespace WebAddressbookTests
 		public GroupHelper(ApplicationManager manager) : base(manager)
 		{
 		}
-        public GroupHelper Mofify(int v, GroupData newData)
+        public GroupHelper Modify(GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
 
-            SelectGroup(v);
+            SelectGroup(0);
             InitGroupModification();
             FillGroupForm(newData);
             SubmitGroupModification();
@@ -54,7 +54,7 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GoToGroupsPage();
             
-                SelectGroup(v); 
+                SelectGroup(0); 
                 RemoveGroup();
                 ReturnToGroupsPage();
             return this;
