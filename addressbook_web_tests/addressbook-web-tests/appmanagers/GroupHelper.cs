@@ -37,17 +37,29 @@ namespace WebAddressbookTests
             Create(new GroupData("qqq"));
         }
 
+        private List<GroupData> groupCache = null;
+
+
         public List<GroupData> GetGroupList()
         {
-            List<GroupData> groups = new List<GroupData>();
-            manager.Navigator.GoToGroupsPage();
-            ICollection<IWebElement>elements = driver.FindElements(By.CssSelector("span.group"));
-            foreach (IWebElement element in elements)
+            if(groupCache == null)
             {
+                groupCache = new List<GroupData>();
+                manager.Navigator.GoToGroupsPage();
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+                foreach (IWebElement element in elements)
+                {
 
-                groups.Add(new GroupData(element.Text));
+                    groupCache.Add(new GroupData(element.Text));
+                }
             }
-            return groups;
+    
+            return new List<GroupData> (groupCache);
+        }
+
+        public int GetGroupCount()
+        {
+          return  driver.FindElements(By.CssSelector("span.group")).Count;
         }
 
         public GroupHelper Remove(int v)
@@ -96,6 +108,7 @@ namespace WebAddressbookTests
         public GroupHelper SubmitGroupCreation()
 		{
 			driver.FindElement(By.Name("submit")).Click();
+            groupCache = null;
 			return this;
 		}
 		public GroupHelper ReturnToGroupsPage()
@@ -112,11 +125,13 @@ namespace WebAddressbookTests
 		public GroupHelper RemoveGroup()
 		{
 			driver.FindElement(By.Name("delete")).Click();
-			return this;
+            groupCache = null;
+            return this;
 		}
         public GroupHelper SubmitGroupModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            groupCache = null;
             return this;
         }
 

@@ -105,7 +105,8 @@ namespace WebAddressbookTests
 				lastname = value;
 			}
 		}
-	
-		}
+
+        public string Id { get; internal set; }
+    }
 	}
 
