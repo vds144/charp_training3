@@ -8,19 +8,11 @@ namespace WebAddressbookTests
 {
 	public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-		private string firstname;
-		private string middlename = "";
-		private string lastname;
-
-		public ContactData(string firstname)
-		{
-			this.firstname = firstname;
-        }
 
         public ContactData(string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            Firstname = firstname;
+            Lastname = lastname;
         }
 
 
@@ -70,43 +62,16 @@ namespace WebAddressbookTests
             }
         }
 
-        public string Firstname
-		{
-			get
-			{
-				return firstname;
-			}
-			set
-			{
-				firstname = value;
-			}
-		}
+        public string Firstname { get; set; }
 
-		public string Middlename
-		{
-			get
-			{
-				return middlename;
-			}
-			set
-			{
-				middlename = value;
-			}
-		}
+		public string Middlename { get; set; }
 
-		public string Lastname
-		{
-			get
-			{
-				return lastname;
-			}
-			set
-			{
-				lastname = value;
-			}
-		}
 
-        public string Id { get; internal set; }
+		public string Lastname { get; set; }
+
+
+        public string Id { get; set; }
     }
-	}
+    }
+	
 

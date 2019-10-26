@@ -9,12 +9,12 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
-	public class GroupHelper : HelperBase
-	{		
-		
-		public GroupHelper(ApplicationManager manager) : base(manager)
-		{
-		}
+    public class GroupHelper : HelperBase
+    {
+
+        public GroupHelper(ApplicationManager manager) : base(manager)
+        {
+        }
         public GroupHelper Modify(GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
@@ -42,7 +42,7 @@ namespace WebAddressbookTests
 
         public List<GroupData> GetGroupList()
         {
-            if(groupCache == null)
+            if (groupCache == null)
             {
                 groupCache = new List<GroupData>();
                 manager.Navigator.GoToGroupsPage();
@@ -50,12 +50,16 @@ namespace WebAddressbookTests
                 foreach (IWebElement element in elements)
                 {
 
-                    groupCache.Add(new GroupData(element.Text));
+                    groupCache.Add(new GroupData(element.Text)
+                    {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    });
                 }
             }
-    
-            return new List<GroupData> (groupCache);
+
+            return new List<GroupData>(groupCache);
         }
+    
 
         public int GetGroupCount()
         {

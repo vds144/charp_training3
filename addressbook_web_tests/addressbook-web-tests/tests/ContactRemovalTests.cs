@@ -17,7 +17,7 @@ namespace WebAddressbookTests
         {
 
 
-            
+            app.Contacts.IsModifyContact();
 
             ContactData contact = new ContactData("Fistname", "Test");
 
@@ -26,19 +26,27 @@ namespace WebAddressbookTests
                 app.Contacts.Create(contact);
             }
 
-            app.Contacts.IsModifyContact();
+            
 
             ContactData newData = new ContactData("Firstname", "qwe");
 
             List<ContactData> oldContact = app.Contacts.GetContactsLists();
 
-            app.Contacts.Remove(0, newData);
+            app.Contacts.Remove(0);
 
             List<ContactData> newContact = app.Contacts.GetContactsLists();
+
+            ContactData toBeRemoved = oldContact[0];
 
             oldContact.RemoveAt(0);
 
             Assert.AreEqual(oldContact, newContact);
+
+
+            foreach (ContactData contacts in newContact)
+            {
+                Assert.AreNotEqual(contacts.Id, toBeRemoved.Id);
+            }
 
         }
     }

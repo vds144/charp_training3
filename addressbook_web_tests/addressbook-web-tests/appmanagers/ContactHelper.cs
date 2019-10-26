@@ -57,7 +57,7 @@ namespace WebAddressbookTests
            return driver.FindElements(By.Name("entry")).Count;
         }
 
-        public ContactHelper Remove(int i, ContactData newData)
+        public ContactHelper Remove(int i)
         {
             manager.Navigator.GoToContactPage();
 
@@ -107,7 +107,7 @@ namespace WebAddressbookTests
                 return;
             }
             ContactData newData = new ContactData("123","456");
-            Create(new ContactData("qwe","asd"));
+            Create(new ContactData("Firstname ", "lastname"));
         }
 
 

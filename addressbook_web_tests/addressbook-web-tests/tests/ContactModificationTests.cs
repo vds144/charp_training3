@@ -14,7 +14,7 @@ namespace WebAddressbookTests
 		[Test]
 		public void ContactModificationTest()
 		{
-            
+            app.Contacts.IsModifyContact();
 
             ContactData contact = new ContactData("Firstname", "Test");
 
@@ -23,7 +23,7 @@ namespace WebAddressbookTests
                 app.Contacts.Create(contact);
             }
 
-            app.Contacts.IsModifyContact();
+            
 
             ContactData newData = new ContactData("Firstname", "qwe");
 
