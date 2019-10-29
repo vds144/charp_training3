@@ -28,7 +28,7 @@ namespace WebAddressbookTests
 
             
 
-            ContactData newData = new ContactData("Firstname", "qwe");
+           ContactData newData = new ContactData("Firstname", "qwe");
 
             List<ContactData> oldContact = app.Contacts.GetContactsLists();
 
