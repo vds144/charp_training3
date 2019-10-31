@@ -8,7 +8,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
-using System.Text.RegularExpressions;
+
 
 
 namespace WebAddressbookTests
@@ -136,6 +136,16 @@ namespace WebAddressbookTests
             return this;
         }
 
+
+        public ContactHelper OpenContactCard(int i)
+        {
+            driver.FindElements(By.Name("entry"))[i]
+                .FindElements(By.TagName("td"))[6]
+                .FindElement(By.TagName("a")).Click();
+            return this;
+        }
+
+
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
@@ -256,6 +266,17 @@ namespace WebAddressbookTests
            Match m = new Regex(@"\d+").Match(text);
            return Int32.Parse(m.Value);
         }
+
+
+        public ContactData GetContactInformationFromCard(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            OpenContactCard(index);
+            string allData = driver.FindElement(By.Id("content")).Text;
+            return new ContactData(allData);
+        }
+
+
 
     }
 }

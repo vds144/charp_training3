@@ -5,13 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
+
 namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
-        private String allEmails;
-        // private string AllPhones;
+        private string allEmails;
+        private string allData;
+       
 
         public ContactData(string firstname, string lastname)
         {
@@ -19,9 +21,10 @@ namespace WebAddressbookTests
             Lastname = lastname;
         }
 
-
-
-
+        public ContactData(string allData)
+        {
+            this.allData = allData;
+        }
 
         public string Firstname { get; set; }
 
@@ -156,6 +159,77 @@ namespace WebAddressbookTests
             else
             {
                 return compareResultL;
+            }
+        }
+
+        public string AllData
+        {
+            get
+            {
+                if (allData != null)
+                {
+                    return allData;
+                }
+                else
+                {
+                    string s = " ";
+                    string s1 = " ";
+                    string s2 = " ";
+                    string s3 = " ";
+                    string s4 = " ";
+                    string p1 = " ";
+                    string p2 = " ";
+                    string p3 = " ";
+
+                    if (Firstname != "")
+                    {
+                        s = Firstname;
+                    }
+                    if (Lastname != "")
+                    {
+                        s1 = " " + Lastname + " \r\n";
+                    }
+                    if (Address != "")
+                    {
+                        s2 = Address + " \r\n";
+                    }
+                    if (HomePhone != "")
+                    {
+                        p1 = "H: " + HomePhone + " \r\n";
+                    }
+                    if (MobilePhone != "")
+                    {
+                        p2 = "M: " + MobilePhone + " \r\n";
+                    }
+                    if (WorkPhone != "")
+                    {
+                        p3 = "W: " + WorkPhone;
+                    }
+                    if (AllPhones != "")
+                    {
+                        s3 = "\r\n" + p1 + p2 + p3 + "\r\n";
+                    }
+                    if (AllEmails != "")
+                    {
+                        s4 = AllEmails + " \r\n\r\n";
+                    }
+                    if (s + s1 + s2 + s3 + s4 == "")
+                    {
+                        return " \r\n\r\n";
+                    }
+                    else
+                    {
+                        if (AllEmails != "" && AllPhones != "")
+                        {
+                            return s + s1 + s2 + s3 + "\r\n" + s4;
+                        }
+                    }
+                    return s + s1 + s2 + s3 + s4;
+                }
+            }
+            set
+            {
+                allData = value;
             }
         }
 
