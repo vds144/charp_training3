@@ -139,7 +139,7 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return "firstname = " + Firstname + ", " + "lastname = " + Lastname;
+            return "firstname = " + Firstname + ", " + "\nlastname = " + Lastname;
         }
 
         public int CompareTo(ContactData other)
