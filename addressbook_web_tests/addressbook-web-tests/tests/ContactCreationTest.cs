@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
 using NUnit.Framework;
+using System.IO;
 
 
 namespace WebAddressbookTests
@@ -25,9 +26,26 @@ namespace WebAddressbookTests
             }
             return contacts;
         }
+        public static IEnumerable<ContactData> ContactDataFromFile()
+        {
+            List<ContactData> contacts = new List<ContactData>();
 
+            string[] lines = File.ReadAllLines(@"contacts.csv");
 
-        [Test, TestCaseSource("RandomContactDataProvider")]
+            foreach (string l in lines)
+            {
+                string[] parts = l.Split(',');
+                contacts.Add(new ContactData(parts[0])
+                {
+                    Firstname = parts[1],
+                    Lastname = parts[2]
+                  
+                });
+            }
+            return contacts;
+        }
+
+        [Test, TestCaseSource("ContactDataFromFile")]
 	public void ContactCreationTest(ContactData contact)
 		{
 
