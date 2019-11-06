@@ -13,18 +13,24 @@ namespace WebAddressbookTests
         private string allPhones;
         private string allEmails;
         private string allData;
-       
 
-        public ContactData(string firstname, string lastname)
+
+        public ContactData()
+        {
+        }
+
+        public ContactData(string firstname)
+        {
+            Firstname = firstname;
+        }
+
+        public ContactData (string firstname, string lastname)
         {
             Firstname = firstname;
             Lastname = lastname;
         }
 
-        public ContactData(string allData)
-        {
-            this.allData = allData;
-        }
+
 
         public string Firstname { get; set; }
 

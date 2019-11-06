@@ -1,18 +1,17 @@
-﻿using System;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
+﻿using NUnit.Framework;
+using System;
+using System.Xml;
+using System.Xml.Serialization;
 using System.Collections.Generic;
-using NUnit.Framework;
+using Newtonsoft.Json;
 using System.IO;
-
 
 namespace WebAddressbookTests
 {
-	[TestFixture]
-	public class GroupCreationTests : AuthTestBase
+    [TestFixture]
+    public class GroupCreationTests : AuthTestBase
     {
-       public static IEnumerable<GroupData> RandomGroupDataProvider()
+        public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
             List<GroupData> groups = new List<GroupData>();
             for (int i = 0; i < 5; i++)
@@ -31,10 +30,10 @@ namespace WebAddressbookTests
             List<GroupData> groups = new List<GroupData>();
 
             string[] lines = File.ReadAllLines(@"groups.csv");
-            
+
             foreach (string l in lines)
             {
-               string[] parts = l.Split(',');
+                string[] parts = l.Split(',');
                 groups.Add(new GroupData(parts[0])
                 {
                     Header = parts[1],
@@ -44,16 +43,28 @@ namespace WebAddressbookTests
             return groups;
         }
 
+          public static IEnumerable<GroupData> GroupDataFromjsonFile()
+        {
+           return JsonConvert.DeserializeObject<List<GroupData>>(
+                File.ReadAllText(@"groups.json"));
+        }
+        public static IEnumerable<GroupData> GroupDataFromXmlFile()
+        {
+            return (List <GroupData>)
+                new XmlSerializer(typeof(List<GroupData>))
+                 .Deserialize(new StreamReader(@"groups.xml"));
+        }
+
 
         [Test, TestCaseSource("GroupDataFromFile")]
-		public void GroupCreationTest(GroupData group)
-		{
+        public void GroupCreationTest(GroupData group)
+        {
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             app.Groups.Create(group);
 
-            List <GroupData>  newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();
