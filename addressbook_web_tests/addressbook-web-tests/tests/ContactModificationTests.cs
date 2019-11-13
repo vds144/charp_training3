@@ -9,12 +9,12 @@ namespace WebAddressbookTests
 {
 	[TestFixture]
 
-	public class ContactModificationTests : AuthTestBase
+	public class ContactModificationTests : ContactTestBase
     {
 		[Test]
 		public void ContactModificationTest()
 		{
-            app.Contacts.IsModifyContact();
+            
 
             ContactData contact = new ContactData("Firstname", "Test");
 
@@ -27,15 +27,23 @@ namespace WebAddressbookTests
 
             ContactData newData = new ContactData("Firstname", "qwe");
 
-            List<ContactData> oldContact = app.Contacts.GetContactsLists();
-
-            app.Contacts.Modify(0,newData);
+            List<ContactData> oldContact = ContactData.GetAll();
 
 
-            List<ContactData> newContact = app.Contacts.GetContactsLists();
+            ContactData toBeModified = ContactData.GetAll().First();
+            
+            ContactData item = oldContact.Find(c => c.Id == toBeModified.Id);
+                                 
+            app.Contacts.ModifyContact(toBeModified, newData);
 
-            oldContact[0].Firstname = newData.Firstname;
-            oldContact[0].Lastname = newData.Lastname;
+
+
+            List<ContactData> newContact = ContactData.GetAll();
+
+
+            int i = oldContact.IndexOf(item);
+            oldContact[i].Firstname = newData.Firstname;
+            oldContact[i].Lastname = newData.Lastname;
 
 
             oldContact.Sort();

@@ -61,15 +61,14 @@ namespace WebAddressbookTests
 
 
 
-            List<ContactData> oldContact = app.Contacts.GetContactsLists();
-
+            List<ContactData> oldContact = ContactData.GetAll();
             app.Contacts.Create(contact);
 
 
             Assert.AreEqual(oldContact.Count + 1, app.Contacts.GetContactsCount());
 
 
-            List<ContactData> newContact = app.Contacts.GetContactsLists();
+            List<ContactData> newContact = ContactData.GetAll();
 
             oldContact.Add(contact);
 

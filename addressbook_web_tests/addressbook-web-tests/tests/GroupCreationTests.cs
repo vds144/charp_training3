@@ -11,7 +11,7 @@ using System.Linq;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
@@ -81,15 +81,17 @@ namespace WebAddressbookTests
 
 
 
-        [Test, TestCaseSource("GroupDataFromExcelFile")]
+        [Test, TestCaseSource("GroupDataFromFile")]
         public void GroupCreationTest(GroupData group)
         {
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
 
             app.Groups.Create(group);
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
+
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();
@@ -130,6 +132,24 @@ namespace WebAddressbookTests
             List<GroupData> fromDb = GroupData.GetAll();
             end = DateTime.Now;
             System.Console.Out.WriteLine(end.Subtract(start));
+        }
+
+        [Test]
+        public void TestDBConnectivity2()
+        {
+            foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+                {
+                System.Console.Out.WriteLine(contact);
+            }
+        }
+
+        [Test]
+        public void TestDBConnectivity3()
+        {
+            foreach (ContactData contact in ContactData.GetAll())
+            {
+                System.Console.Out.WriteLine(contact.Deprecated);
+            }
         }
     }
 }
