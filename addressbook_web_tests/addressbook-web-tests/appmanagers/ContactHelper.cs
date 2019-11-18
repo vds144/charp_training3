@@ -37,7 +37,7 @@ namespace WebAddressbookTests
             ClearGroupFilter();
             SelectContactall(contact.Id);
             SelectGroupToAdd(group.Name);
-            CommitAddingContactToGroup();
+            CommitDeleteContactFromGroup();
 
             new WebDriverWait(driver, TimeSpan.FromSeconds(10))
                 .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
@@ -84,6 +84,9 @@ namespace WebAddressbookTests
             ReturnToContactPage();
             return this;
         }
+
+
+
 
 
         private List<ContactData> contactCache = null;
@@ -343,6 +346,26 @@ namespace WebAddressbookTests
             new WebDriverWait(driver, TimeSpan.FromSeconds(10))
             .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
             return this;
+        }
+
+        public void RemoveContactFromGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectGroupToRemove(group.Name);
+            SelectContactall(contact.Id);
+            CommitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        private void CommitDeleteContactFromGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
+
+        private void SelectGroupToRemove(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
         }
 
 

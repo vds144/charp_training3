@@ -25,9 +25,35 @@ namespace WebAddressbookTests
             newList.Sort();
             oldList.Sort();
 
+             
             Assert.AreEqual(oldList, newList);
 
 
+        }
+
+        [Test]
+        public void TestRemoveContactFromGroup()
+        {
+            List<GroupData> groups = GroupData.GetAll();
+            for (int i = 0; i < groups.Count(); i++)
+            {
+                GroupData group = groups[i];
+                List<ContactData> oldList = group.GetContacts();
+                if (oldList.Count != 0)
+                {
+                    ContactData contactToRemove = oldList[0];
+                    app.Contacts.RemoveContactFromGroup(contactToRemove, group);
+                    List<ContactData> newList = group.GetContacts();
+                    oldList.Remove(contactToRemove);
+                    newList.Sort();
+                    oldList.Sort();
+                    Assert.AreEqual(oldList, newList);
+                }
+                else
+                {
+                    System.Console.Out.WriteLine("There is no contacts in group " + groups[i].Name);
+                }
+            }
         }
     }
 }
