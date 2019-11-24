@@ -27,6 +27,14 @@ namespace WebAddressbookTests
 
         }
 
+        public GroupData(string name, string header, string footer)
+        {
+            Name = name;
+            Header = header;
+            Footer = footer;
+        }
+
+
 
 
         public bool Equals(GroupData other)
