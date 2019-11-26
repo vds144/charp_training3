@@ -61,6 +61,30 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public bool IsGroupExist()
+        {
+            return IsElementPresent(By.CssSelector("span.group"));
+        }
+
+
+        public GroupHelper CreateIfNotExist()
+        {
+            manager.Navigator.GoToGroupsPage();
+
+            if (IsGroupExist() == false)
+            {
+                GroupData data = new GroupData("aaa")
+                {
+                    Header = "bbb",
+                    Footer = "ccc"
+                };
+
+                Create(data);
+            }
+
+            return this;
+        }
+
 
         public List<GroupData> GetGroupList()
         {

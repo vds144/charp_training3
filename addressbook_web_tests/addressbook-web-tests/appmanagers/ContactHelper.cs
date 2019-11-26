@@ -293,6 +293,8 @@ namespace WebAddressbookTests
 
         }
 
+
+
         public ContactData GetContactInformationFormEditForm(int index)
         {
             manager.Navigator.GoToHomePage();
@@ -320,6 +322,77 @@ namespace WebAddressbookTests
                 WorkPhone = workPhone
             };
         }
+        public bool IsContactExist()
+        {
+            return IsElementPresent(By.Name("entry"));
+        }
+
+        public ContactHelper CreateIfNotExist()
+        {
+            manager.Navigator.GoToHomePage();
+
+            if (IsContactExist() == false)
+            {
+                ContactData data = new ContactData("aaa", "sss")
+                {
+                    Email1 = "email1",
+                    Email2 = "email2",
+                    Email3 = "email3",
+                    Address = "address",
+                    HomePhone = "homePhone",
+                    MobilePhone = "mobilePhone",
+                    WorkPhone = "workPhone"
+                };
+
+                Create(data);
+            }
+            return this;
+        }
+
+
+
+        public ContactHelper CreateContactLinkToGroupIfNotExist(int index)
+        {
+            manager.Navigator.GoToHomePage();
+
+            GroupData group = GroupData.GetAll()[index];
+            List<ContactData> oldContactsInGroupList = group.GetContacts();
+            if (oldContactsInGroupList.Count == 0)
+            {
+                AddContactToGroup(GetContactList()[index], group);
+                oldContactsInGroupList = group.GetContacts();
+            }
+
+            return this;
+        }
+
+
+        public List<ContactData> GetContactList()
+        {
+            if (contactCache == null)
+            {
+                contactCache = new List<ContactData>();
+                manager.Navigator.GoToHomePage();
+
+                List<ContactData> contacts = new List<ContactData>();
+                ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+                foreach (IWebElement element in elements)
+                {
+                    IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                    string id = cells[0].FindElement(By.Name("selected[]")).GetAttribute("value");
+                    string lastName = cells[1].Text;
+                    string firstName = cells[2].Text;
+
+                    contactCache.Add(new ContactData(firstName, lastName)
+                    {
+                        Id = id
+                    });
+                }
+            }
+
+            return new List<ContactData>(contactCache);
+        }
+
 
         public int GetNumberOfSearchResults()
         {
@@ -349,14 +422,17 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public void RemoveContactFromGroup(ContactData contact, GroupData group)
+        public ContactHelper RemoveContactFromGroup(ContactData contact, GroupData group)
         {
             manager.Navigator.GoToHomePage();
+
             SelectGroupToRemove(group.Id);
             SelectContactall(contact.Id);
             CommitDeleteContactFromGroup();
             new WebDriverWait(driver, TimeSpan.FromSeconds(10))
                 .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+
+            return this;
         }
 
         public String GetContactId()

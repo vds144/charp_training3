@@ -45,21 +45,21 @@ namespace WebAddressbookTests
             return groups;
         }
 
-          public static IEnumerable<GroupData> GroupDataFromjsonFile()
+        public static IEnumerable<GroupData> GroupDataFromjsonFile()
         {
-           return JsonConvert.DeserializeObject<List<GroupData>>(
-                File.ReadAllText(@"groups.json"));
+            return JsonConvert.DeserializeObject<List<GroupData>>(
+                 File.ReadAllText(@"groups.json"));
         }
         public static IEnumerable<GroupData> GroupDataFromXmlFile()
         {
-            return (List <GroupData>)
+            return (List<GroupData>)
                 new XmlSerializer(typeof(List<GroupData>))
                  .Deserialize(new StreamReader(@"groups.xml"));
         }
 
         public static IEnumerable<GroupData> GroupDataFromToExcelFile()
         {
-            List <GroupData> groups = new List<GroupData>();
+            List<GroupData> groups = new List<GroupData>();
             Excel.Application app = new Excel.Application();
             Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"groups.xlsx"));
             Excel.Worksheet sheet = wb.ActiveSheet;
@@ -138,7 +138,7 @@ namespace WebAddressbookTests
         public void TestDBConnectivity2()
         {
             foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
-                {
+            {
                 System.Console.Out.WriteLine(contact);
             }
         }
@@ -150,6 +150,17 @@ namespace WebAddressbookTests
             {
                 System.Console.Out.WriteLine(contact.Deprecated);
             }
+
         }
+        [Test]
+        public void TestDBConnectivity4()
+        {
+            foreach (ContactData contact in ContactData.GetAll())
+            {
+                var result = GroupData.GetAll();
+                System.Console.Out.WriteLine(result.Count());
+            }
+        }
+
     }
 }
